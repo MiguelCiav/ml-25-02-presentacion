@@ -1,0 +1,459 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+%===============================
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable} 
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning,shapes,fit,arrows} %above, below, etc
+\usetikzlibrary{backgrounds}
+\usepackage{varwidth}
+\usepackage{algorithmicx}
+\usepackage[ruled]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algpascal}
+\usepackage{algc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry} % Margenes de las paginas
+\usepackage{graphicx} % Manejo de imagenes
+\usepackage{tikz} % Para dibujar!
+\usepackage{pgf} % Para dibujar!
+\usepackage{pgfplots}
+\usepackage{tikz-3dplot}
+\usepackage[spanish, mexico]{babel}
+% Extra from main.tex
+\usepackage{tabulary}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{biblatex}
+\usepackage{xcolor} % Required for specifying colors by name
+\usepackage{multicol,multirow}
+\usepackage{amsmath,amssymb,latexsym}
+\usepackage{makecell} %Celdas en Tablas
+\usepackage{relsize} %Simbolos matematicos mas grandes
+\usepackage{bm} %Negritas en modo math
+\usepackage{wasysym}
+\usepackage{wrapfig}  %Figuras flotantes
+\usepackage{subfig}   %Un ambiente Figura con varias imagenes
+\usepackage{caption}  %Caption a subfig
+\usepackage{tikzsymbols}
+%=========================================================
+\setbeamercovered{transparent} % Texto transparente antes de explicarlo
+%=========================================================
+
+%=========== Colores ==========
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\red}[1]{\textcolor[rgb]{1.00,0.00,0.00}{#1}}
+\newcommand{\blue}[1]{\textcolor[rgb]{0.00,0.00,1.00}{#1}}
+\newcommand{\verde}[1]{\textcolor[rgb]{0.00,0.45,0.00}{#1}}
+\definecolor{verde}{RGB}{0,83,0}
+%==============================
+
+%=========== Tipo de Presentaion ===========
+%PALETA DE COLORES DE LA PRSENTACION
+\usetheme{Warsaw} %EXISTEN OTROS!
+\useoutertheme{infolines} % Alternatively: miniframes, infolines, split
+\useinnertheme{circles}
+\usefonttheme[onlysmall]{structurebold}
+\definecolor{Dark}{RGB}{34,139,34}
+\definecolor{Light}{RGB}{154,205,50}
+\definecolor{ABColor}{RGB}{255,69,0} % AlertBlockColor
+\definecolor{BColor}{RGB}{0,139,139} % BlockColor
+
+\setbeamercolor{palette primary}{bg=Dark,fg=white}
+\setbeamercolor{palette secondary}{bg=Light,fg=white}
+\setbeamercolor{palette tertiary}{bg=Dark,fg=white}
+\setbeamercolor{palette quaternary}{bg=Dark,fg=white}
+\setbeamercolor{structure}{fg=Dark} % itemize, enumerate, etc
+\setbeamercolor{section in toc}{fg=Dark} % TOC sections
+
+\setbeamercolor{subsection in head/foot}{bg=Light,fg=white}
+
+%Colores para los block
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{fg=white,bg=BColor}
+\setbeamercolor{block body}{bg=Light!1}
+\AtBeginEnvironment{block}{%
+	\setbeamercolor{itemize item}{fg=BColor}
+	\setbeamercolor{itemize subitem}{fg=BColor}
+	\setbeamercolor{itemize subsubitem}{fg=BColor}
+	\setbeamercolor{enumerate item}{fg=BColor, bg=red}
+	\setbeamercolor{enumerate subitem}{fg=BColor}
+	\setbeamercolor{enumerate subsubitem}{fg=BColor}
+	\setbeamercolor{item projected}{fg=white, bg=BColor}
+}
+
+%Colores para los alerblock
+\setbeamercolor{block title alerted}{fg=white,bg=ABColor}
+\setbeamercolor{block body alerted}{bg=Light!5}
+\AtBeginEnvironment{alertblock}{%
+	\setbeamercolor{itemize item}{fg=ABColor}
+	\setbeamercolor{itemize subitem}{fg=ABColor}
+	\setbeamercolor{itemize subsubitem}{fg=ABColor}
+	\setbeamercolor{enumerate item}{fg=ABColor, bg=red}
+	\setbeamercolor{enumerate subitem}{fg=ABColor}
+	\setbeamercolor{enumerate subsubitem}{fg=ABColor}
+	\setbeamercolor{item projected}{fg=white, bg=ABColor}
+}
+%%===============================================================
+
+
+%========= Definiciones ===========
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\com}[2]
+{
+	\left(%
+	\begin{array}{c}
+		#1 \\
+		#2 \\
+	\end{array}%
+	\right) }
+\newcommand{\ia}{\textquestiondown}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+% Start presentation metadata
+\author[DM-6213]{Carlos Cao C.I. 28.655.925 \\
+C\'esar Carios C.I. 30.136.117 \\
+Miguel Ciavato C.I. 30.541.929}
+\title{Global Video Game Sales \& Ratings}
+\subtitle{Metodolog\'ia CRISP-DM}
+\institute[\textsl{Miner\'ia de Datos}]{
+    6213 - Miner\'ia de Datos \\ \color{black!40} Facultad de ciencias \\ Universidad Central de Venezuela
+    \medskip
+}
+\date{\today}
+\bibliography{reference}
+% End presentation metadata
+
+\begin{document}
+
+% Start titlepage
+\begin{frame}
+\centering
+\includegraphics[width=0.12\textwidth]{logos/universidad.png}
+\hspace{0.71\textwidth}
+\includegraphics[width=0.12\textwidth]{logos/facultad.jpg}
+\vspace{0.10\textwidth}
+\titlepage
+\end{frame}
+% End titlepage
+
+
+% Start Table of content
+\setbeamertemplate{section in toc}[circle]
+\begin{frame}
+\frametitle{Contenido}
+\begin{columns}[c]
+\column{.5\textwidth}
+\setlength{\parskip}{2ex}
+ \tableofcontents
+\column{.45\textwidth}
+
+\color{black!40}\emph{
+"Sin datos, sólo eres otra persona con una opinión."\renewcommand{\thempfootnote}{\fnsymbol{mpfootnote}}\footnote[1]{W. Edwards Deming}
+}\\~
+\color{black}
+
+\end{columns}
+\end{frame}
+% End Table of content
+
+% Start body of the presentation
+
+\section{Fase 1: Comprensi\'on del Negocio}
+
+\begin{frame}{El Valor Oculto en la Industria Gaming}
+  \begin{columns}[c]
+  \column{.55\textwidth}
+  \begin{itemize}[<+->]
+      \item \textbf{El Riesgo del \'Exito:} Desarrollar un videojuego hoy en d\'ia implica ciclos masivos de inversi\'on (dinero, tiempo, talento). Un fracaso en ventas puede quebrar un estudio.
+      \item \textbf{M\'as all\'a del C\'odigo:} ¿Qu\'e hace que un juego venda millones? ¿Es el g\'enero, la plataforma, o la recepci\'on de la cr\'itica?
+      \item \textbf{Big Data en Acci\'on:} Hist\'oricamente, la industria depend\'ia de la intuici\'on. Hoy, la \emph{Miner\'ia de Datos} permite decodificar las preferencias del mercado a partir del legado dejado por miles de t\'itulos.
+  \end{itemize}
+  \column{.45\textwidth}
+      \onslide<+->
+      % Placeholder for a conceptual image if needed, or simply text emphasis
+      \begin{alertblock}{Nuestra Misi\'on}
+      Transformar a\~nos de m\'etricas y metadatos hist\'oricos en un mapa de ruta estrat\'egico para el desarrollo interactivo.
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Planteamiento y Viabilidad del Proyecto}
+\begin{itemize}[<+->]
+    \item \textbf{El N\'ucleo del Problema:} Existen m\'ultiples factores interconectados (notas de usuarios, scores de cr\'iticos, g\'eneros, publicadores) que afectan el desempe\~no comercial de un t\'itulo, pero su peso e impacto son inciertos.
+    \item \textbf{Objetivo Anal\'itico:} Aspiramos a construir un modelo capaz de anticipar el alcance comercial global (\texttt{Global\_Sales}) de un producto interactivo bas\'andonos exclusivamente en sus especificaciones y recepci\'on p\'ublica.
+    \item \textbf{La Inc\'ognita a Resolver:} \emph{¿Existen verdaderamente patrones matem\'aticos predictibles que garanticen, o al menos perfilen, el triunfo de un videojuego antes o durante su ciclo de vida en el mercado?}
+\end{itemize}
+\end{frame}
+
+% ------------------------- EXPOSITOR 1 -------------------------
+\section{Fase 2: Comprensi\'on de los Datos}
+\begin{frame}{Inventario de Datos}
+  \textbf{Origen:} \href{https://www.kaggle.com/datasets/thedevastator/global-video-game-sales-ratings}{Kaggle - Global Video Game Sales \& Ratings} ($\approx 6,800$ juegos)
+  \vspace{0.5em}
+  
+  \begin{table}[]
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{lllccllc}
+  \hline
+  \textbf{Name} & \textbf{Platform} & \textbf{Genre} & \textbf{Global\_Sales} & \textbf{Critic\_Score} & \textbf{Rating} & \textbf{Story Focus} & \textbf{Series} \\ \hline
+  .hack//Infection Part 1 & PS2 & Role-Playing & 1.27 & 75.0 & T & x & x \\
+  {[}Prototype{]} & X360 & Action & 1.31 & 78.0 & M & NaN & x \\
+  100 Classic Books & DS & Misc & 0.66 & 70.0 & N/A & NaN & NaN \\
+  ... & ... & ... & ... & ... & ... & ... & ... \\ \hline
+  \end{tabular}%
+  }
+  \caption{Muestra del dataset proveniente de Tagged-Data-Final.csv}
+  \end{table}
+
+  \begin{itemize}[<+->]
+      \item \textbf{Num\'ericas:} \texttt{Ventas}, \texttt{Critic\_Score}, \texttt{User\_Score}.
+      \item \textbf{Categ\'oricas:} \texttt{Genre}, \texttt{Publisher}, \texttt{Developer},  \texttt{Rating}.
+      \item \textbf{L\'ogicas/Binarias:} \texttt{Story Focus}, \texttt{Gameplay Focus}, \texttt{Series} $\leftarrow$ (Ruido alto).
+      \item \textbf{Variable Objetivo:} Predecir Ventas Globales (\texttt{Global\_Sales}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Diagn\'ostico de Valores Nulos}
+  Al inspeccionar el dataset, se identific\'o la presencia de valores faltantes en 6 de las 18 columnas:
+  \vspace{0.5em}
+  \begin{table}[]
+  \centering
+  \resizebox{0.75\textwidth}{!}{%
+  \begin{tabular}{lcc}
+  \hline
+  \textbf{Variable} & \textbf{Valores Nulos} & \textbf{Porcentaje (\%)} \\ \hline
+  Story Focus    & 6\,127 & 88.87 \\
+  Series         & 6\,103 & 88.53 \\
+  Gameplay Focus &   308  &  4.47 \\
+  Rating         &    68  &  0.99 \\
+  Developer      &     4  &  0.06 \\
+  Publisher      &     1  &  0.01 \\ \hline
+  \end{tabular}%
+  }
+  \caption{Variables con valores nulos en el dataset original (6\,894 registros)}
+  \end{table}
+
+  \begin{itemize}[<+->]
+      \item \textbf{Nivel cr\'itico ($>$80\%):} \texttt{Story Focus} y \texttt{Series} usan \texttt{'x'} como marcador de presencia; el resto es nulo. Requieren transformaci\'on a variables binarias (0/1).
+      \item \textbf{Nivel moderado:} \texttt{Gameplay Focus} sigue el mismo patr\'on pero con menor proporci\'on de nulos.
+      \item \textbf{Nivel menor ($<$1\%):} \texttt{Rating} y \texttt{Developer} pueden imputarse (moda) o eliminarse sin impacto significativo en la muestra.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{An\'alisis Exploratorio: El Fen\'omeno Long-Tail}
+  \begin{columns}[c]
+  \column{.55\textwidth}
+  \begin{itemize}[<+->]
+      \item \textbf{Asimetr\'ia Positiva Extrema:} La distribuci\'on de ventas no sigue una distribuci\'on normal perfecta, tiene una larga cola hacia la derecha (Right-Skewed).
+      \item \textbf{Realidad Econ\'omica:} La inmensa mayor\'ia de juegos fracasa o vende menos de la media hist\'orica (0.77M). Una \'infima minor\'ia logra viralidad y ventas masivas.
+      \item \textbf{Reto Matem\'atico:} Predecir estos mega\'exitos (valores at\'ipicos) ser\'a el mayor desaf\'io para el algoritmo.
+  \end{itemize}
+  \column{.45\textwidth}
+      \onslide<+->
+      \begin{center}
+          \textbf{Distribuci\'on de Ventas} \\
+          \vspace{0.2cm}
+          \includegraphics[width=\textwidth]{figs/Analisis_Distribucion.png}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Matriz de Correlaci\'on}
+  \begin{columns}[c]
+  \column{.55\textwidth}
+  \begin{itemize}[<+->]
+      \item \textbf{Relaciones Lineales:} Detecci\'on de una alt\'isima correlaci\'on ($\approx 0.90$) entre las ventas de Norteam\'erica (NA\_Sales) y Europa (EU\_Sales).
+      \item \textbf{Decisi\'on T\'ecnica:} Se confirma matem\'aticamente la alta redundancia de la informaci\'on que aportan.
+  \end{itemize}
+  \column{.45\textwidth}
+      \onslide<+->
+      \begin{center}
+          \textbf{Mapa de Correlaci\'on} \\
+          \vspace{0.2cm}
+          \includegraphics[width=\textwidth]{figs/Map_Corr.png}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Multicolinealidad y Target Leakage}
+  \begin{columns}[c]
+  \column{.55\textwidth}
+  \begin{itemize}[<+->]
+      \item \textbf{Fobia a la Fuga de Informaci\'on (Target Leakage):} Si incluy\'eramos cualquier venta regional (\texttt{NA\_Sales}, \texttt{EU\_Sales}) para predecir las ventas globales (\texttt{Global\_Sales}), cometer\'iamos una trampa algor\'itmica.
+      \item \textbf{Decisi\'on:} Se excluyen rigurosamente todas las variables de ventas regionales de la fase predictiva.
+  \end{itemize}
+  \column{.45\textwidth}
+      \onslide<+->
+      \begin{center}
+          \textbf{Colinealidad entre ventas norteamericanas y europeas} \\
+          \vspace{0.2cm}
+          \includegraphics[width=\textwidth]{figs/Grafico_Dispersion.png}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+% ------------------------- EXPOSITOR 2 -------------------------
+\section{Fase 3: Preparaci\'on de Datos}
+\begin{frame}{El Problema del Ruido}
+  \begin{alertblock}{Datos Inconsistentes}
+    Las variables cualitativas sobre el enfoque del juego (\texttt{Story Focus}, \texttt{Series}) superaban el 80\% de valores nulos y utilizaban el car\'acter 'x' para marcar presencias. Introducir esto en un algoritmo generar\'ia un error de compilaci\'on.
+  \end{alertblock}
+  \vspace{1em}
+  \begin{itemize}[<+->]
+      \item Imputar con m\'etodos tradicionales destruir\'ia la se\~nal.
+      \item Eliminar las filas con nulos significar\'ia perder el 90\% de los videojuegos del estudio.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Limpieza e Imputaci\'on Binaria}
+  Optamos por una soluci\'on elegante para rescatar la integridad de los datos sin perder informaci\'on del negocio:
+  \vspace{1em}
+  \onslide<+->
+  \begin{block}{Transformaci\'on L\'ogica}
+      \begin{itemize}[<+->]
+          \item \texttt{NaN} $\rightarrow$ $\mathbf{0}$ (Asumimos ausencia de la caracter\'istica).
+          \item \texttt{'x'} $\rightarrow$ $\mathbf{1}$ (Marcador de presencia confirmada).
+      \end{itemize}
+  \end{block}
+  \vspace{1em}
+  \onslide<+->
+  Adicionalmente para \texttt{Rating} (68 nulos) y \texttt{Developer} (4 nulos) se imput\'o la moda o se limipiaron dichas filas sin impacto cr\'itico.
+\end{frame}
+
+\begin{frame}{Selecci\'on de Caracter\'isticas y Codificaci\'on}
+  \begin{itemize}[<+->]
+      \item \textbf{Maldici\'on de la dimensionalidad:} Eliminamos columnas de texto libre (como \texttt{Name}).
+      \item \textbf{One-Hot Encoding:} Aplicamos codificaci\'on matricial a variables categ\'oricas como el \texttt{Genre} y el \texttt{Rating}.
+      \item \textbf{Pr\'actica Estad\'istica:} Usamos \texttt{drop\_first=True} en la codificaci\'on para esquivar la \textbf{multicolinealidad perfecta} (o trampa de variables ficticias).
+  \end{itemize}
+  \vspace{1em}
+  \onslide<+->
+  \textbf{Entregable a ML:} Una matriz de datos completamente limpia, num\'erica y estandarizada.
+\end{frame}
+
+% ------------------------- EXPOSITOR 3 -------------------------
+\section{Fases 4 y 5: Modelado y Evaluaci\'on}
+\begin{frame}{Fase 4: Modelado y Regularizaci\'on}
+  \begin{itemize}[<+->]
+      \item \textbf{Algoritmo elegido:} \textbf{Random Forest Regressor}.
+      \item \textbf{Problema base:} El modelo inicial memoriz\'o el ruido, sufriendo un grave sobreajuste (\textit{Overfitting}).
+      \item \textbf{Soluci\'on (Regularizaci\'on):} Optimizamos hiperpar\'ametros usando \texttt{GridSearchCV}.
+      \begin{itemize}
+          \item \texttt{max\_depth = 15} (Podando la profundidad).
+          \item \texttt{min\_samples\_leaf = 2}.
+      \end{itemize}
+  \end{itemize}
+  \vspace{0.5em}
+  \onslide<+->
+  Esto forz\'o matem\'aticamente a los \'arboles a encontrar s\'olo patrones reales y generalizables.
+\end{frame}
+
+\begin{frame}{Fase 5: El "Jaque Mate" Matem\'atico}
+  \begin{columns}[c]
+  \column{.55\textwidth}
+  \begin{block}{Modelos en Competencia}
+    Entrenamos un modelo lineal base para validar nuestro nuevo enfoque. 
+    \begin{itemize}[<+->]
+        \item \textbf{Regresi\'on Lineal (Ridge):} $R^2 = 0.20$. Destrozado por la volatilidad del mercado.
+        \item \textbf{Random Forest Regressor:} $R^2 = 0.36$, \textbf{RMSE} $= 1.22$M.
+    \end{itemize}
+  \end{block}
+  \vspace{0.5em}
+  \onslide<+->
+  La diferencia prueba que \textbf{el \'exito en los videojuegos es extremadamente complejo y no-lineal}. Nuestro modelo casi duplica la capacidad de predicci\'on de una simple l\'inea recta general.
+  \column{.45\textwidth}
+      \onslide<+->
+      \includegraphics[width=\textwidth]{figs/Comparativa_Error.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Evaluaci\'on Visual: Dispersi\'on de Predicciones}
+  \begin{itemize}[<+->]
+      \item Comparativa de las predicciones frente a los valores reales.
+      \item El modelo regularizado reduce la dispersi\'on extrema y se ajusta más a la l\'inea ideal, mitigando el \textit{Overfitting} del modelo base.
+  \end{itemize}
+  \vspace{0.5em}
+  \onslide<+->
+  \begin{columns}[c]
+  \column{.5\textwidth}
+      \centering
+      \textbf{Modelo Base}\\
+      \includegraphics[width=0.9\textwidth]{figs/Dispersión_Predicciones.png}
+  \column{.5\textwidth}
+      \centering
+      \textbf{Modelo Regularizado}\\
+      \includegraphics[width=0.9\textwidth]{figs/Dispersión_Predicciones_regu.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Evaluaci\'on Visual: Distribuci\'on de Residuos (Errores)}
+  \begin{itemize}[<+->]
+      \item \textbf{Gr\'afico de Residuos:} Logramos formar una campana bien centrada en cero.
+      \item Esto prueba que nuestro algoritmo \textbf{no tiene un sesgo direccional} (no subestima ni sobreestima sistem\'aticamente).
+  \end{itemize}
+  \vspace{0.5em}
+  \onslide<+->
+  \begin{columns}[c]
+  \column{.5\textwidth}
+      \centering
+      \textbf{Modelo Base}\\
+      \includegraphics[width=0.9\textwidth]{figs/Distribucion_Error.png}
+  \column{.5\textwidth}
+      \centering
+      \textbf{Modelo Regularizado}\\
+      \includegraphics[width=0.9\textwidth]{figs/Distribucion_Error_regu.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Evaluaci\'on Visual: Importancia de Variables}
+  \begin{itemize}[<+->]
+      \item La interacci\'on de la comunidad (\texttt{User\_Count}) y la presi\'on de la cr\'itica especializada son las maestras que mueven las ventas.
+      \item Curiosamente, el \textbf{g\'enero del juego resulta irrelevante matem\'aticamente} a la hora de alcanzar el \'exito de copias.
+  \end{itemize}
+  \vspace{0.5em}
+  \onslide<+->
+  \begin{columns}[c]
+  \column{.5\textwidth}
+      \centering
+      \textbf{Modelo Base}\\
+      \includegraphics[width=0.9\textwidth]{figs/Top10_Factores.png}
+  \column{.5\textwidth}
+      \centering
+      \textbf{Modelo Regularizado}\\
+      \includegraphics[width=0.9\textwidth]{figs/Top10_Factores_regu.png}
+  \end{columns}
+\end{frame}
+
+\section{Fase 6: Despliegue (Deployment)}
+\begin{frame}{Cierre: Simulador Proyectivo}
+  No dejamos el modelo en teor\'ia. Exportamos el artefacto entrenado (\texttt{.pkl}) e implementamos un simulador interactivo para consultar nuevas propuestas de inversores.
+  \vspace{1em}
+  \onslide<+->
+  \begin{exampleblock}{Conclusi\'on de Negocio para Inversores}
+    Dejen de perseguir el "g\'enero de moda" (Shooters, Deportes, etc.).\\
+    El modelo matem\'atico es implacable: \textbf{Inviertan en pulir la calidad de su software (buenas cr\'iticas) y en construir campa\~nas comunitarias masivas}. La data nos demuestra que s\'olo as\'i se garantiza la rentabilidad masiva.
+  \end{exampleblock}
+\end{frame}
+%-----
+\begin{frame}{Referencias}
+\noindent\printbibliography
+\end{frame}
+
+\begin{frame}
+ \begin{center}
+		{\Huge ¡Gracias!}\\
+		\bigskip\bigskip % Vertical whitespace
+		
+		{\LARGE dm-25.ucv.ai}
+		
+	\end{center}
+\end{frame}
+
+\end{document}
