@@ -1,6 +1,0 @@
-\babel@toc {spanish}{}\relax 
-\beamer@sectionintoc {1}{Fase 1: Comprensi\'on del Negocio}{3}{0}{1}
-\beamer@sectionintoc {2}{Fase 2: Comprensi\'on de los Datos}{10}{0}{2}
-\beamer@sectionintoc {3}{Fase 3: Preparaci\'on de Datos}{27}{0}{3}
-\beamer@sectionintoc {4}{Fases 4 y 5: Modelado y Evaluaci\'on}{37}{0}{4}
-\beamer@sectionintoc {5}{Fase 6: Despliegue (Deployment)}{56}{0}{5}
