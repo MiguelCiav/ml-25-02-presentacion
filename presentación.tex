@@ -171,9 +171,9 @@ Miguel Ciavato C.I. 30.541.929}
   \begin{columns}[c]
   \column{.55\textwidth}
   \begin{itemize}[<+->]
-      \item \textbf{El Riesgo del \'Exito:} Desarrollar un videojuego hoy en d\'ia implica ciclos masivos de inversi\'on (dinero, tiempo, talento). Un fracaso en ventas puede quebrar un estudio.
-      \item \textbf{M\'as all\'a del C\'odigo:} ¿Qu\'e hace que un juego venda millones? ¿Es el g\'enero, la plataforma, o la recepci\'on de la cr\'itica?
-      \item \textbf{Big Data en Acci\'on:} Hist\'oricamente, la industria depend\'ia de la intuici\'on. Hoy, la \emph{Miner\'ia de Datos} permite decodificar las preferencias del mercado a partir del legado dejado por miles de t\'itulos.
+      \item Desarrollar un videojuego hoy en d\'ia implica ciclos masivos de inversi\'on (dinero, tiempo, talento). Un fracaso en ventas puede quebrar un estudio.
+      \item ¿Qu\'e hace que un juego venda millones? ¿Es el g\'enero, la plataforma, o la recepci\'on de la cr\'itica?
+      \item La \emph{Miner\'ia de Datos} permite decodificar las preferencias del mercado a partir del legado dejado por miles de t\'itulos.
   \end{itemize}
   \column{.45\textwidth}
       \onslide<+->
@@ -186,9 +186,9 @@ Miguel Ciavato C.I. 30.541.929}
 
 \begin{frame}{Planteamiento y Viabilidad del Proyecto}
 \begin{itemize}[<+->]
-    \item \textbf{El N\'ucleo del Problema:} Existen m\'ultiples factores interconectados (notas de usuarios, scores de cr\'iticos, g\'eneros, publicadores) que afectan el desempe\~no comercial de un t\'itulo, pero su peso e impacto son inciertos.
-    \item \textbf{Objetivo Anal\'itico:} Aspiramos a construir un modelo capaz de anticipar el alcance comercial global (\texttt{Global\_Sales}) de un producto interactivo bas\'andonos exclusivamente en sus especificaciones y recepci\'on p\'ublica.
-    \item \textbf{La Inc\'ognita a Resolver:} \emph{¿Existen verdaderamente patrones matem\'aticos predictibles que garanticen, o al menos perfilen, el triunfo de un videojuego antes o durante su ciclo de vida en el mercado?}
+    \item \textbf{El Problema:} Existen m\'ultiples factores interconectados (notas de usuarios, scores de cr\'iticos, g\'eneros, publicadores) que afectan el desempe\~no comercial de un t\'itulo, pero su peso e impacto son inciertos.
+    \item \textbf{Objetivo:} Aspiramos a construir un modelo capaz de anticipar el alcance comercial global (\texttt{Global\_Sales}) de un producto interactivo bas\'andonos exclusivamente en sus especificaciones y recepci\'on p\'ublica.
+    \item \textbf{Pregunta a responder:} \emph{¿Existen verdaderamente patrones matem\'aticos predictibles que garanticen, o al menos perfilen, el triunfo de un videojuego antes o durante su ciclo de vida en el mercado?}
 \end{itemize}
 \end{frame}
 
@@ -247,7 +247,7 @@ Miguel Ciavato C.I. 30.541.929}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{An\'alisis Exploratorio: El Fen\'omeno Long-Tail}
+\begin{frame}{An\'alisis Exploratorio}
   \begin{columns}[c]
   \column{.55\textwidth}
   \begin{itemize}[<+->]
@@ -282,12 +282,12 @@ Miguel Ciavato C.I. 30.541.929}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Multicolinealidad y Target Leakage}
+\begin{frame}{Multicolinealidad}
   \begin{columns}[c]
   \column{.55\textwidth}
   \begin{itemize}[<+->]
-      \item \textbf{Fobia a la Fuga de Informaci\'on (Target Leakage):} Si incluy\'eramos cualquier venta regional (\texttt{NA\_Sales}, \texttt{EU\_Sales}) para predecir las ventas globales (\texttt{Global\_Sales}), cometer\'iamos una trampa algor\'itmica.
-      \item \textbf{Decisi\'on:} Se excluyen rigurosamente todas las variables de ventas regionales de la fase predictiva.
+      \item Si incluy\'eramos cualquier venta regional (\texttt{NA\_Sales}, \texttt{EU\_Sales}) para predecir las ventas globales (\texttt{Global\_Sales}), cometer\'iamos una trampa algor\'itmica.
+      \item Se excluyen rigurosamente todas las variables de ventas regionales de la fase predictiva.
   \end{itemize}
   \column{.45\textwidth}
       \onslide<+->
@@ -313,7 +313,7 @@ Miguel Ciavato C.I. 30.541.929}
 \end{frame}
 
 \begin{frame}{Limpieza e Imputaci\'on Binaria}
-  Optamos por una soluci\'on elegante para rescatar la integridad de los datos sin perder informaci\'on del negocio:
+  Optamos por esta solución, para rescatar la integridad de los datos sin perder informaci\'on del negocio:
   \vspace{1em}
   \onslide<+->
   \begin{block}{Transformaci\'on L\'ogica}
@@ -329,9 +329,9 @@ Miguel Ciavato C.I. 30.541.929}
 
 \begin{frame}{Selecci\'on de Caracter\'isticas y Codificaci\'on}
   \begin{itemize}[<+->]
-      \item \textbf{Maldici\'on de la dimensionalidad:} Eliminamos columnas de texto libre (como \texttt{Name}).
-      \item \textbf{One-Hot Encoding:} Aplicamos codificaci\'on matricial a variables categ\'oricas como el \texttt{Genre} y el \texttt{Rating}.
-      \item \textbf{Pr\'actica Estad\'istica:} Usamos \texttt{drop\_first=True} en la codificaci\'on para esquivar la \textbf{multicolinealidad perfecta} (o trampa de variables ficticias).
+      \item Eliminamos columnas de texto libre (como \texttt{Name}).
+      \item Aplicamos codificaci\'on matricial a variables categ\'oricas como el \texttt{Genre} y el \texttt{Rating}.
+      \item Usamos \texttt{drop\_first=True} en la codificaci\'on para esquivar la \textbf{multicolinealidad}.
   \end{itemize}
   \vspace{1em}
   \onslide<+->
@@ -344,7 +344,7 @@ Miguel Ciavato C.I. 30.541.929}
   \begin{itemize}[<+->]
       \item \textbf{Algoritmo elegido:} \textbf{Random Forest Regressor}.
       \item \textbf{Problema base:} El modelo inicial memoriz\'o el ruido, sufriendo un grave sobreajuste (\textit{Overfitting}).
-      \item \textbf{Soluci\'on (Regularizaci\'on):} Optimizamos hiperpar\'ametros usando \texttt{GridSearchCV}.
+      \item \textbf{Regularizaci\'on:} Optimizamos hiperpar\'ametros usando \texttt{GridSearchCV}.
       \begin{itemize}
           \item \texttt{max\_depth = 15} (Podando la profundidad).
           \item \texttt{min\_samples\_leaf = 2}.
@@ -438,11 +438,12 @@ Miguel Ciavato C.I. 30.541.929}
   \onslide<+->
   \begin{exampleblock}{Conclusi\'on de Negocio para Inversores}
     Dejen de perseguir el "g\'enero de moda" (Shooters, Deportes, etc.).\\
-    El modelo matem\'atico es implacable: \textbf{Inviertan en pulir la calidad de su software (buenas cr\'iticas) y en construir campa\~nas comunitarias masivas}. La data nos demuestra que s\'olo as\'i se garantiza la rentabilidad masiva.
+    Los insights obtenidos apuntan a lo siguiente: Es altamente recomendable invertir en pulir la calidad de su software (buenas cr\'iticas) y en construir campa\~nas comunitarias masivas. La data nos demuestra que esto aumenta la probabilidad de obtener rentabilidad masiva.
   \end{exampleblock}
 \end{frame}
 %-----
 \begin{frame}{Referencias}
+\nocite{*}
 \noindent\printbibliography
 \end{frame}
 
